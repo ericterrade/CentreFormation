@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Requete AJAX">
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<meta charset="utf-8">
+<title>Stagiaires</title>
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="loadingImage">
+</div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Centre de formation</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.html">Home</a></li>
+					<li><a href="formation.html">Nos Formations</a></li>
+					<li><a href="session.html">Sessions ouvertes</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Nos Formations</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row" id="detailFormation">
+			<h3></h3>
+
+		</div>
+		<div class="row" id="listFormation2"></div>
+	</div>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/formation.js"></script>
+</body>
+</html>

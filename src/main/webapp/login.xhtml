@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Login page</title>
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.request.contextPath}/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.request.contextPath}/css/bootstrap-theme.min.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<form method="post" action="j_security_check">
+					<div class="form-group">
+						<label for="j_username">Login</label>
+						<div class="input-group">
+							<div class="input-group-addon">!</div>
+							<h:inputText id="j_username" label="Login" required="true"
+								styleClass="form-control" placeholder="Enter email" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="j_password">Password</label>
+						<div class="input-group">
+							<div class="input-group-addon">*</div>
+							<h:inputSecret id="j_password" label="password" required="true"
+								styleClass="form-control" placeholder="Enter email" />
+						</div>
+					</div>
+					<h:commandButton value="Valider" styleClass="btn btn-primary" />
+				</form>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+
+</h:body>
+</html>

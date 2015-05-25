@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui"
+xmlns:of="http://omnifaces.org/functions"
+template="../header-template.xhtml">
+	<ui:define name="content">
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Sessions</h1>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+					</li>
+					<li><i class="fa fa-user"></i> <a href="#">Session</a></li>
+					<li class="active"><i class="fa fa fa-user"></i>Liste des
+						Sessions</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+
+
+			<div class="table-responsive">
+				<div class="col-lg-12">
+					<h2>Liste des Sessions</h2>
+					<h:form id="form">
+						<p:growl id="msgs" showDetail="true" />
+						<p:dataTable id="singleDT" var="mySession"
+							value="#{sessionManagedBean.sessions}"
+							widgetVar="sessionsTable" rowKey="#{mySession.id}"
+							selectionMode="single" editable="true"
+							selection="#{sessionManagedBean.selectedSession}"
+							emptyMessage="Aucun Session ne repond à ces critères"
+							filteredValue="#{sessionManagedBean.selectedSessions}">
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Recherche sur tous les champs:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('sessionsTable').filter()" style="width:150px"
+										placeholder="Entrer un mot clé" />
+								</p:outputPanel>
+							</f:facet>
+							<p:ajax event="rowEdit"
+								listener="#{sessionManagedBean.onRowEdit}" update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{sessionManagedBean.onRowCancel}"
+								update=":form:msgs" />
+
+							<p:column filterBy="#{mySession.id}" headerText="Id"
+								filterMatchMode="contains">
+								<h:outputText value="#{mySession.id}" />
+							</p:column>
+
+							<p:column filterBy="#{mySession.dateDeDebut}" headerText="Date de Debut"
+								filterMatchMode="contains">
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{mySession.dateDeDebut}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="dateDeDebut" value="#{mySession.dateDeDebut}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column filterBy="#{session.dateDeFin}" headerText="Date de Fin"
+								filterMatchMode="contains">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{mySession.dateDeFin}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="dateDeFin" value="#{mySession.dateDeFin}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column style="width:52px">
+								<p:rowEditor />
+								<p:commandButton
+									actionListener="#{sessionManagedBean.remove(mySession)}"
+									icon="ui-icon-trash" update=":form:msgs">
+									<f:param name="delete" value="30" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+
+
+
+
+	</ui:define>
+</ui:composition>

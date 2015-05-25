@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	template="../header-template.xhtml" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Sessions</h1>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+					</li>
+					<li><i class="fa fa-user"></i> <a href="#">Session</a></li>
+					<li class="active"><i class="fa fa fa-user"></i>Edition
+						Session</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-6">
+				<h2>Edition Session</h2>
+				<h:form id="form">
+					<p:messages autoUpdate="true" />
+					<h:inputHidden name="id" value="#{sessionManagedBean.mySession.id}" />
+					<div class="form-group input-group">
+						<label for="dateDeDebut">Date de Debut</label>
+
+						<h:panelGrid columns="2" cellpadding="5">
+
+							<p:calendar id="popupDebut"
+								value="#{sessionManagedBean.mySession.dateDeDebut}" />
+						</h:panelGrid>
+						<p:dialog modal="true" resizable="false" header="Values"
+							widgetVar="dlg" showEffect="fold">
+							<p:panelGrid id="displayDebut" columns="2"
+								columnClasses="label,value">
+								<h:outputText value="Date de Début :" />
+								<h:outputText
+									value="#{sessionManagedBean.mySession.dateDeDebut}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+
+							</p:panelGrid>
+						</p:dialog>
+
+					</div>
+					<div class="form-group input-group">
+						<label for="dateDeDebut">Date de Debut</label>
+
+						<h:panelGrid columns="2" cellpadding="5">
+
+							<p:calendar id="popupFin"
+								value="#{sessionManagedBean.mySession.dateDeFin}" />
+						</h:panelGrid>
+						<p:dialog modal="true" resizable="false" header="Values"
+							widgetVar="dlg" showEffect="fold">
+							<p:panelGrid id="displayFin" columns="2"
+								columnClasses="label,value">
+								<h:outputText value="Date de Fin :" />
+								<h:outputText value="#{sessionManagedBean.mySession.dateDeFin}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+
+							</p:panelGrid>
+						</p:dialog>
+
+					</div>
+					<div class="form-group input-group">
+						<label for="formation">Formations</label>
+						<h:panelGrid columns="2" cellpadding="5">
+							<p:selectOneMenu value="#{sessionManagedBean.formation}"
+								style="width:125px" converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{sessionManagedBean.formations}"
+									var="formation" itemLabel="#{formation.intitule}"
+									itemValue="#{formation}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+					</div>
+
+					<div class="form-group input-group">
+						<label for="stagiaires">Stagiaires</label>
+						<h:panelGrid columns="3" cellpadding="5">
+							<p>
+								<b>Selected items</b>:
+								<ui:fragment
+									rendered="#{not empty sessionManagedBean.model.target}">
+									<ui:repeat value="#{sessionManagedBean.model.target}"
+										var="stagiaire" varStatus="loop">
+                #{stagiaire.id}#{loop.last ? '' : ', '}
+            </ui:repeat>
+								</ui:fragment>
+								<h:outputText value="[no selection made]"
+									rendered="#{empty sessionManagedBean.model.target}" />
+							</p>
+
+							<p>
+								<b>Choose a city, then press Select</b>:
+								<p:pickList value="#{sessionManagedBean.model}" var="stagiaire"
+									itemValue="#{stagiaire}" itemLabel="#{stagiaire.nom}">
+									<o:converter converterId="omnifaces.ListConverter"
+										list="#{sessionManagedBean.model.source}" />
+								</p:pickList>
+							</p>
+							<h:commandButton value="Select">
+								<f:ajax execute="@form" render="@form" />
+							</h:commandButton>
+
+
+
+
+							<!-- 							<p:selectCheckboxMenu id="stagiaires" -->
+							<!-- 								value="#{sessionManagedBean.stagiaires}" label="stagiaire" -->
+							<!-- 								filter="true" -->
+							<!-- 								filterMatchMode="#{sessionManagedBean.stagiaire.nom}" -->
+							<!-- 								panelStyle="width:500px"> -->
+							<!-- 								<f:selectItem itemLabel="Selectionnez des stagiaires" -->
+							<!-- 									itemValue="" itemDisabled="true" /> -->
+							<!-- 								<f:selectItems value="#{sessionManagedBean.stagiaires}" /> -->
+							<!-- 							</p:selectCheckboxMenu> -->
+						</h:panelGrid>
+					</div>
+					<div class="form-group input-group">
+						<h:commandButton action="#{sessionManagedBean.create()}"
+							value="Envoyer" />
+					</div>
+
+
+				</h:form>
+
+			</div>
+		</div>
+		<!-- /.row -->
+
+
+
+	</ui:define>
+</ui:composition>

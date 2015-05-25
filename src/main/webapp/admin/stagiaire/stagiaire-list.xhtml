@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../header-template.xhtml">
+	<ui:define name="content">
+		<p:tooltip />
+
+
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Stagiaires</h1>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+					</li>
+					<li><i class="fa fa-user"></i> <a href="#">Stagiaire</a></li>
+					<li class="active"><i class="fa fa fa-user"></i>Liste des
+						Stagiaires</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+
+
+
+			<div class="table-responsive">
+				<div class="col-lg-12">
+					<h2>Liste des Stagiaires</h2>
+					<h:form id="fMessage">
+						<p:messages id="msgs" showDetail="true" autoUpdate="true"
+							closable="true" />
+
+					</h:form>
+					<h:form id="fTable">
+
+						<p:dataTable id="singleDT" var="stagiaire"
+							value="#{stagiaireManagedBean.stagiaires}"
+							widgetVar="stagiairesTable" rowKey="#{stagiaire.id}"
+							selectionMode="single" editable="true" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15"
+							selection="#{stagiaireManagedBean.selectedStagiaire}"
+							emptyMessage="Aucun Stagiaire ne repond à ces critères"
+							filteredValue="#{stagiaireManagedBean.selectedStagiaires}">
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Recherche sur tous les champs:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('stagiairesTable').filter()" style="width:150px"
+										placeholder="Entrer un mot clé" />
+								</p:outputPanel>
+							</f:facet>
+							<p:ajax event="rowEdit"
+								listener="#{stagiaireManagedBean.onRowEdit}"
+								update=":fMessage:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{stagiaireManagedBean.onRowCancel}"
+								update=":fMessage:msgs" />
+
+							<p:column filterBy="#{stagiaire.id}" headerText="Id"
+								filterMatchMode="contains">
+								<h:outputText value="#{stagiaire.id}" />
+							</p:column>
+
+							<p:column filterBy="#{stagiaire.nom}" headerText="Nom"
+								filterMatchMode="contains">
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{stagiaire.nom}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="nom" value="#{stagiaire.nom}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column filterBy="#{stagiaire.prenom}" headerText="Prenom"
+								filterMatchMode="contains">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{stagiaire.prenom}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="prenom" value="#{stagiaire.prenom}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column filterBy="#{stagiaire.email}" headerText="Email"
+								filterMatchMode="contains">
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{stagiaire.email}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="email" value="#{stagiaire.email}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column filterBy="#{stagiaire.dateDeNaissance}"
+								headerText="Date de Naissance" filterMatchMode="lte">
+								<f:facet name="filter">
+									<p:spinner onchange="PF('stagiairesTable').filter()"
+										styleClass="year-spinner">
+										<f:converter converterId="javax.faces.Integer" />
+									</p:spinner>
+								</f:facet>
+								<h:outputText value="#{stagiaire.dateDeNaissance}" />
+							</p:column>
+
+							<p:column style="width:52px">
+								<p:rowEditor>
+									<p:commandButton
+										actionListener="#{stagiaireManagedBean.remove(stagiaire)}"
+										icon="ui-icon-trash" update=":fMessage:msgs">
+										<f:param name="delete" value="30" />
+										<p:confirm header="Supprimer" message="Etes-vous sûr?"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:rowEditor>
+
+							</p:column>
+
+						</p:dataTable>
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</ui:define>
+</ui:composition>

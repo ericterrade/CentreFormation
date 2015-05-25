@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	template="../header-template.xhtml" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Formations</h1>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
+					</li>
+					<li><i class="fa fa-user"></i> <a href="#">Formation</a></li>
+					<li class="active"><i class="fa fa fa-user"></i>Edition
+						Formation</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-6">
+				<h2>Edition Formation</h2>
+				<h:form id="form">
+					<h:inputHidden name="id"
+						value="#{formationManagedBean.formation.id}" />
+					<div class="form-group input-group">
+						<label for="nom">Nom</label>
+						<h:inputText name="nom"
+							value="#{formationManagedBean.formation.nom}"
+							styleClass="form-control" placeholder="Nom du Formation" />
+					</div>
+					<div class="form-group input-group">
+						<label for="prenom">Prenom</label>
+						<h:inputText name="prenom"
+							value="#{formationManagedBean.formation.prenom}"
+							styleClass="form-control" placeholder="Prénom du Formation" />
+					</div>
+
+					<div class="form-group input-group">
+						<label for="email">Email</label>
+						<h:inputText name="email"
+							value="#{formationManagedBean.formation.email}"
+							styleClass="form-control" placeholder="xxxxx@xxxxx.xx">
+						</h:inputText>
+					</div>
+					<div class="form-group input-group">
+					<label for="dateDeNaissance">Date de Naissance</label>
+						<p:growl id="msgs" showDetail="true" />
+
+						<h:panelGrid columns="2" cellpadding="5">
+							
+							<p:calendar id="popup" value="#{formationManagedBean.formation.dateDeNaissance}" />
+						</h:panelGrid>
+						<p:dialog modal="true" resizable="false" header="Values"
+							widgetVar="dlg" showEffect="fold">
+							<p:panelGrid id="display" columns="2" columnClasses="label,value">
+								<h:outputText value="Date de Naissance :" />
+								<h:outputText value="#{formationManagedBean.formation.dateDeNaissance}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+
+							</p:panelGrid>
+						</p:dialog>
+
+					</div>
+					<div class="form-group input-group">
+						<h:commandButton action="#{formationManagedBean.create()}"
+							value="Envoyer" />
+					</div>
+
+
+				</h:form>
+
+			</div>
+		</div>
+		<!-- /.row -->
+
+
+
+	</ui:define>
+</ui:composition>
